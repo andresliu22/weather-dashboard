@@ -58,7 +58,7 @@ function showCurrentInfo(data, city) {
     h3.text(city + " " + moment().format("(MM/DD/YYYY)"));
     cityInfoEl.append(h3);
     
-    var weatherIcon = $("<img src=" + getWeatherIcon(data.current.weather[0].icon) + "></img>")
+    var weatherIcon = $("<img src=" + getWeatherIcon(data.current.weather[0].icon) + " alt="+ data.current.weather[0].main +"></img>")
     weatherIcon.attr("class", "weather-icon");
     h3.append(weatherIcon);
 
@@ -123,7 +123,7 @@ function showForecast(dailyData) {
         var h4 = $('<h4>');
         h4.text(moment(new Date(), "DD-MM-YYYY").add(i + 1, 'days').format("MM/DD/YYYY"));
 
-        var weatherIcon = $("<div class='icon-div'><img class='weather-icon' src=" + getWeatherIcon(dailyData[i].weather[0].icon) + "></img></div>")
+        var weatherIcon = $("<div class='icon-div'><img class='weather-icon' src=" + getWeatherIcon(dailyData[i].weather[0].icon) + " alt="+ dailyData[i].weather[0].main +"></img></div>")
 
         var ulEl = $('<ul>');
         ulEl.css({"list-style": "none", "padding-left": "0px"});
