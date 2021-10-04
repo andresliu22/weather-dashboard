@@ -23,6 +23,20 @@ function handleFormSubmit(event){
     fetchCityCoords(apiUrl)
 }
 
+// Display city information when clicking button
+function handleCityBtn(event){
+    // Empty input
+    inputEl.val('');
+
+    // Delete spaces from input
+    var cityName = $(event.target).text().trim().replace(" ", "%20").toUpperCase();
+
+    // API URL to get the latitude and longitude of city
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
+
+    fetchCityCoords(apiUrl)
+}
+
 // Fetch data (latitude and longitude)
 function fetchCityCoords(apiUrl) {
     fetch(apiUrl).then(function(response) {
@@ -31,10 +45,10 @@ function fetchCityCoords(apiUrl) {
                 // Set new API URL to get weather data from the typed city
                 var oneCallApiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + apiKey;
                 // Fetch weather data of city
-                fetchWeatherData(oneCallApiUrl, data.name)
+                fetchWeatherData(oneCallApiUrl, data.name);
             })
         } else {
-            $('#myModal').modal('show')
+            $('#myModal').modal('show');
         }
     });
 }
@@ -150,14 +164,12 @@ function showForecast(dailyData) {
     cityForecastEl.css({"visibility": "visible"});
 
     createSearchHistory()
-    
 }
 
 // Create search history buttons
 function createSearchHistory() {
     if (JSON.parse(localStorage.getItem("searchHistory")) != null) {
         var searchHistory = JSON.parse(localStorage.getItem("searchHistory")); 
-        
     } else {
         var searchHistory = [];
     }
@@ -174,28 +186,19 @@ function createSearchHistory() {
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     }
 
+    // Create button for each city
     if (searchHistory.length > 0) {
         searchedCitiesEl.empty();
         for (var i = 0; i < searchHistory.length; i++) {
             var cityBtn = $('<button>');
             cityBtn.attr("class", "city-btn btn btn-info");
             cityBtn.text(searchHistory[i].toUpperCase());
-            
             searchedCitiesEl.append(cityBtn);
         }
     }
     
-}
-
-// Display city information when clicking button
-function handleCityBtn(event){
-    // Delete spaces from input
-    var cityName = $(event.target).text().trim().replace(" ", "%20").toUpperCase();
-
-    // API URL to get the latitude and longitude of city
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
-
-    fetchCityCoords(apiUrl)
+    // Clear input value
+    inputEl.val('');
 }
 
 // Change temperature from Kelvin to Fahrenheit
