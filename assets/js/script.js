@@ -33,6 +33,8 @@ function fetchCityCoords(apiUrl) {
                 // Fetch weather data of city
                 fetchWeatherData(oneCallApiUrl, data.name)
             })
+        } else {
+            $('#myModal').modal('show')
         }
     });
 }
@@ -151,6 +153,7 @@ function showForecast(dailyData) {
     
 }
 
+// Create search history buttons
 function createSearchHistory() {
     if (JSON.parse(localStorage.getItem("searchHistory")) != null) {
         var searchHistory = JSON.parse(localStorage.getItem("searchHistory")); 
@@ -159,7 +162,14 @@ function createSearchHistory() {
         var searchHistory = [];
     }
 
-    if (inputEl.val() !== "" && !searchHistory.includes(inputEl.val())) {
+    // Validate if the city is already in the local storage
+    var isCityIncluded = searchHistory.map((city) => { 
+        return city.toUpperCase() 
+    }).includes(inputEl.val().toUpperCase());
+    console.log(isCityIncluded);
+
+    // Validate if string is empty and city is already included
+    if (inputEl.val() !== "" && !isCityIncluded) {
         searchHistory.push(inputEl.val());
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     }
@@ -177,6 +187,7 @@ function createSearchHistory() {
     
 }
 
+// Display city information when clicking button
 function handleCityBtn(event){
     // Delete spaces from input
     var cityName = $(event.target).text().trim().replace(" ", "%20").toUpperCase();
@@ -200,4 +211,3 @@ function getWeatherIcon(iconCode) {
 // Event listener
 submitBtnEl.on("click", handleFormSubmit);
 searchedCitiesEl.on("click", ".city-btn", handleCityBtn);
-
