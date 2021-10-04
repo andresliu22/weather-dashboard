@@ -128,3 +128,19 @@ input:focus {
     margin: 1px 0 1px 0;
     border-radius: 15px;
 }
+
+#city-info, #city-forecast {
+    visibility: hidden;
+}
+
+.uvi-low {
+    background-color: limegreen;
+}
+
+.uvi-moderate {
+    background-color: orange;
+}
+
+.uvi-high {
+    background-color: red;
+}

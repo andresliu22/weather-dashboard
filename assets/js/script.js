@@ -28,7 +28,6 @@ function fetchCityCoords(apiUrl) {
     fetch(apiUrl).then(function(response) {
         if (response.ok){
             response.json().then(function(data) {
-
                 // Set new API URL to get weather data from the typed city
                 var oneCallApiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + apiKey;
                 // Fetch weather data of city
@@ -43,7 +42,6 @@ function fetchWeatherData(url, city) {
     fetch(url).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data);
                 // Display Information of city
                 showCurrentInfo(data, city);
             })
@@ -78,7 +76,20 @@ function showCurrentInfo(data, city) {
     liWindEl.text("Wind Speed: " + data.current.wind_speed + "MPH");
 
     var liUVEl = $('<li>');
-    liUVEl.text("UV Index: " + data.current.uvi);
+    liUVEl.text("UV Index: ");
+    var uviSpan = $('<span>');
+    uviSpan.text(data.current.uvi);
+    uviSpan.css({"padding": "2px 5px 2px 5px"});
+
+    if (data.current.uvi <= 2) {
+        uviSpan.attr("class", "uvi-low");
+    } else if (data.current.uvi <= 5) {
+        uviSpan.attr("class", "uvi-moderate");
+    } else {
+        uviSpan.attr("class", "uvi-high");
+    }
+
+    liUVEl.append(uviSpan);
 
     ulEl.append(liTempEl);
     ulEl.append(liHumidityEl);
@@ -133,6 +144,9 @@ function showForecast(dailyData) {
 
     cityForecastEl.append(divEl);
 
+    cityInfoEl.css({"visibility": "visible"});
+    cityForecastEl.css({"visibility": "visible"});
+
     createSearchHistory()
     
 }
@@ -145,7 +159,7 @@ function createSearchHistory() {
         var searchHistory = [];
     }
 
-    if (inputEl.val() !== "") {
+    if (inputEl.val() !== "" && !searchHistory.includes(inputEl.val())) {
         searchHistory.push(inputEl.val());
         localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     }
