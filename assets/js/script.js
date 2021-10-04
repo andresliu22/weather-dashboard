@@ -1,9 +1,14 @@
 var formEl = $('#search-form');
 var inputEl = $('#search-input');
 var submitBtnEl = $('#submit-search');
-var apiKey = "cf55c07cb439558ab37bc0b13e34d8bd";
 var cityInfoEl = $('#city-info');
-var cityForecastEl = $('#city-forecast')
+var cityForecastEl = $('#city-forecast');
+var searchedCitiesEl = $('#searched-cities');
+var apiKey = "cf55c07cb439558ab37bc0b13e34d8bd";
+
+$(document).ready(function () {
+    createSearchHistory()
+});
 
 // Handle every time the search button is pressed
 function handleFormSubmit(event){
@@ -15,7 +20,11 @@ function handleFormSubmit(event){
     // API URL to get the latitude and longitude of city
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
 
-    // Fetch data (latitude and longitude)
+    fetchCityCoords(apiUrl)
+}
+
+// Fetch data (latitude and longitude)
+function fetchCityCoords(apiUrl) {
     fetch(apiUrl).then(function(response) {
         if (response.ok){
             response.json().then(function(data) {
@@ -123,7 +132,45 @@ function showForecast(dailyData) {
     }
 
     cityForecastEl.append(divEl);
+
+    createSearchHistory()
     
+}
+
+function createSearchHistory() {
+    if (JSON.parse(localStorage.getItem("searchHistory")) != null) {
+        var searchHistory = JSON.parse(localStorage.getItem("searchHistory")); 
+        
+    } else {
+        var searchHistory = [];
+    }
+
+    if (inputEl.val() !== "") {
+        searchHistory.push(inputEl.val());
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    }
+
+    if (searchHistory.length > 0) {
+        searchedCitiesEl.empty();
+        for (var i = 0; i < searchHistory.length; i++) {
+            var cityBtn = $('<button>');
+            cityBtn.attr("class", "city-btn btn btn-info");
+            cityBtn.text(searchHistory[i].toUpperCase());
+            
+            searchedCitiesEl.append(cityBtn);
+        }
+    }
+    
+}
+
+function handleCityBtn(event){
+    // Delete spaces from input
+    var cityName = $(event.target).text().trim().replace(" ", "%20").toUpperCase();
+
+    // API URL to get the latitude and longitude of city
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
+
+    fetchCityCoords(apiUrl)
 }
 
 // Change temperature from Kelvin to Fahrenheit
@@ -138,3 +185,5 @@ function getWeatherIcon(iconCode) {
 
 // Event listener
 submitBtnEl.on("click", handleFormSubmit);
+searchedCitiesEl.on("click", ".city-btn", handleCityBtn);
+
