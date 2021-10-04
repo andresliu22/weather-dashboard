@@ -23,18 +23,20 @@
         </div>
     </div>
 
-    <main>
-        <div class="container">
+    <main class="d-flex">
+        <div class="main-div container">
             <div class="row">
-                <div class="col col-md-4">
-                    <h3>Search for a city:</h3>
-                    <form id="search-form">
-                        <input type="text" id="search-input">
-                        <button class="btn btn-primary" id="submit-search"><i class="fas fa-search"></i></button>
-                    </form>
+                <div class="column col-md-4 col-sm-12 col-xs-12">
+                    <div class="search-div">
+                        <h3>Search for a city:</h3>
+                        <form id="search-form">
+                            <input type="text" id="search-input" maxlength="24">
+                            <button class="btn btn-primary" id="submit-search"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
                     <div id="searched-cities"></div>
                 </div>
-                <div class="col col-md-8">
+                <div class="column col-md-8 col-sm-12 col-xs-12">
                     <div class="city-info" id="city-info">
                     </div>
                     <div class="city-forecast" id="city-forecast">

@@ -48,24 +48,74 @@ h1 {
     text-align: center;
 }
 
-main .container {
+main .main-div {
     margin-top: 20px;
 }
 
+.search-div {
+    border-radius: 15px;
+    border-style: double;
+    padding: 15px;
+    background-color: beige;
+}
+
+#search-input {
+    width: 85%;
+    height:40px;
+    border-style: none;
+    padding-left: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+#submit-search {
+    position: absolute;
+    border-radius: 0 10px 10px 0;
+    width: 40px;
+    height: 40px;
+}
+
+.city-info {
+    border-radius: 15px;
+    border-style: double;
+    padding: 15px;
+    background-color: lightgreen;
+}
+
+.city-forecast {
+    border-radius: 15px;
+    border-style: double;
+    padding: 15px;
+    background-color: aqua;
+    margin-top: 10px;
+}
+
+.five-day-div {
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .daily-div {
-    flex: 0 0 20%;
+    flex: 1 0 0;
     position: relative;
     width: 100%;
     background-color: cornflowerblue;
     color: white;
     padding: 10px 15px 10px 15px;
     margin: 5px;
+    border-radius: 15px;
 }
 
 .weather-icon {
     width: 50px;
 }
 
+input:focus {
+   outline: none;
+}
+
+.row .column {
+    margin-bottom: 20px;
+}
 /* .icon-div {
     text-align: center;
 } */
