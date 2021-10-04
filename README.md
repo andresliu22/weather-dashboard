@@ -4,7 +4,7 @@ Check the current weather of any city and its forecast for the next 5 days!
 
 ## Site Picture
 
-![Site](./Assets/images/site-picture.PNG)
+![Site](./assets/images/site-picture.PNG)
 
 ## Getting Started
 
