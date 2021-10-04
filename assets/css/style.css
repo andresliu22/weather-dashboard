@@ -51,3 +51,21 @@ h1 {
 main .container {
     margin-top: 20px;
 }
+
+.daily-div {
+    flex: 0 0 20%;
+    position: relative;
+    width: 100%;
+    background-color: cornflowerblue;
+    color: white;
+    padding: 10px 15px 10px 15px;
+    margin: 5px;
+}
+
+.weather-icon {
+    width: 50px;
+}
+
+/* .icon-div {
+    text-align: center;
+} */
