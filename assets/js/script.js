@@ -178,7 +178,6 @@ function createSearchHistory() {
     var isCityIncluded = searchHistory.map((city) => { 
         return city.toUpperCase() 
     }).includes(inputEl.val().toUpperCase());
-    console.log(isCityIncluded);
 
     // Validate if string is empty and city is already included
     if (inputEl.val() !== "" && !isCityIncluded) {
